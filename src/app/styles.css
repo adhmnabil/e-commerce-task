@@ -1,0 +1,81 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Clash Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-raleway: 'Raleway', ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #141414;
+  --color-ink-muted: #6b6b6b;
+  --color-ink-subtle: #9a9a9a;
+  --color-line: #e8e8e8;
+  --color-surface: #f2f2f2;
+  --color-surface-strong: #eeeeee;
+  --color-star: #ffa439;
+  --color-sale: #111111;
+  --color-success: #12805c;
+  --color-danger: #c62828;
+
+  /* 1200px of content plus 24px gutters on each side. */
+  --container-page: 1248px;
+
+  --animate-drawer-in: drawer-in 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-fade-in: fade-in 200ms ease-out;
+
+  @keyframes drawer-in {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-white font-sans text-ink;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ink;
+  }
+}
+
+@layer components {
+  .rich-text ul { @apply list-disc space-y-1 pl-5; }
+  .rich-text ol { @apply list-decimal space-y-1 pl-5; }
+  .rich-text p + p,
+  .rich-text p + ul,
+  .rich-text ul + p { @apply mt-2; }
+  .rich-text strong { @apply font-semibold text-ink; }
+  .rich-text a { @apply underline underline-offset-2; }
+}
+
+/* Native `dashed` borders render short browser-defined dashes; these draw the design's 6px dash / 6px gap
+   (a 0.5px #a3a3a3 hairline, approximated as 1px #d1d1d1 so it stays crisp on 1x screens). */
+@utility dash-b {
+  background-image: linear-gradient(to right, #d1d1d1 6px, transparent 6px);
+  background-size: 12px 1px;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+}
+@utility dash-t {
+  background-image: linear-gradient(to right, #d1d1d1 6px, transparent 6px);
+  background-size: 12px 1px;
+  background-repeat: repeat-x;
+  background-position: left top;
+}
+@utility dash-box {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23c4c4c4' stroke-width='2' stroke-dasharray='6 6'/%3e%3c/svg%3e");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
